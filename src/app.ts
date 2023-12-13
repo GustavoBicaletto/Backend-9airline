@@ -1,4 +1,5 @@
 // ==============================================  PREPARAÇÃO ================================================================================================
+// (Made by Vitor Hugo Amaro)
 //a Application Programming Interface (Interface de Programação de Aplicação) 'função distinta'
 // recursos/modulos necessarios.
 //Iportações 
@@ -7,18 +8,18 @@ import oracledb, { Connection, ConnectionAttributes } from "oracledb";
 import dotenv from "dotenv";
 import cors from "cors";
 import { CONNREFUSED } from "dns";
-
+// (Made by Vitor Hugo Amaro)
 // preparar o servidor web de backend na porta 3000
 const app = express();//fremework
 const port = 3000;
 // preparar o servidor para dialogar no padrao JSON 
 app.use(express.json());
 app.use(cors());
-
+// (Made by Vitor Hugo Amaro)
 // já configurando e preparando o uso do dotenv para 
 // todos os serviços.
 dotenv.config();
-
+// (Made by Vitor Hugo Amaro)
 // criando um TIPO chamado CustomResponse.
 // Esse tipo vamos sempre reutilizar.
 type CustomResponse = {
@@ -27,7 +28,7 @@ type CustomResponse = {
   payload: any
 };
 
-
+// (Made by Vitor Hugo Amaro)
 /* Este código Backend esta dividido em 6 sessões serviços. Cada sessão é especifica de cada tabela no oracle sql, 
 
 1-sessão-Aeronaves
@@ -55,7 +56,7 @@ LISTAR-AEROPORTO
 
 // ==============================================  1-SESSÃO-AERONAVES ================================================================================================
 
-
+// (Made by Vitor Hugo Amaro)
 // ------------------------------------------------------------------------------------------------ LISTAR-AERONAVE
 app.get("/listarAeronaves", async(req,res)=>{ 
   //UTILIZANDO A REQUISIÇÃO GET PARA FAZER UM SELECT NA TABELA AREONAVES
@@ -89,6 +90,7 @@ app.get("/listarAeronaves", async(req,res)=>{
 
 });
 // ----------------------------------------------------------------------------------------------- INSERIR-AERONAVE
+// (Made by Vitor Hugo Amaro)
 app.put("/inserirAeronave", async(req,res)=>{
   //REQUISIÇÃO TIPO PUT PARA REALIZAR INSERT
   const modelo = req.body.modelo as string;
@@ -148,6 +150,7 @@ app.put("/inserirAeronave", async(req,res)=>{
 });
 
 // ------------------------------------------------------------------------------------------------ LISTAR-ASSENTO-AERONAVE-DO-VOO
+// (Made by Vitor Hugo Amaro)
 app.get("/listarAssentos", async(req,res)=>{ 
   //ESTE CODIGO ELE DA UM SELECT EM UMA TABELA QUE É UMA COPIA DA STORED PRODUCED DO ASSENTO DAS AERONAVES, ELAS SÃO FEITAS AUTOMATICAMENTE, FOI FEITO UM BACKUP PARA NAO INTERFERIR
   //O STATUS DA AERONAVE, E APENAS O STATUS,DELETE DO ASSENTO DO VOO 
@@ -190,6 +193,7 @@ app.get("/listarAssentos", async(req,res)=>{
 
 });
 // ------------------------------------------------------------------------------------------------- UPDATE-STATUS-AERONAVE-DO-VOO 
+// (Made by Vitor Hugo Amaro)
 app.put("/updateAssentos", async (req, res) => {
 
   const numeroIdentificacao = req.body.id_voo as String;
@@ -233,6 +237,7 @@ app.put("/updateAssentos", async (req, res) => {
   }
 });
 // ------------------------------------------------------------------------------------------------- verificacao de status assentos  !!!!!!!!!!!!!!!!!!!!!!!!!!!
+// (Made by Vitor Hugo Amaro)
 app.get("/VerificaAssentos", async(req,res)=>{ 
   const Numero_de_identificacao = req.query.FK_numero_de_identificacao as string;
   const trecho = req.query.FK_NOME_trecho as string;
@@ -278,6 +283,7 @@ app.get("/VerificaAssentos", async(req,res)=>{
 
 });
 // ------------------------------------------------------------------------------------------------- DELETAR-AERONAVE 
+// (Made by Vitor Hugo Amaro)
 app.delete("/excluirAeronave", async(req,res)=>{
     //UTILIZANDO A REQUISIÇÃO DELETE PARA FAZER UM DELETE NA TABELA AREONAVES
   // excluindo a aeronave atraves do id
@@ -330,10 +336,12 @@ END;`
     res.send(cr);  
   }
 });
+// (Made by Vitor Hugo Amaro)
 app.listen(port,()=>{
   console.log("Servidor HTTP funcionando...");
 });
 // ------------------------------------------------------------------------------------------------- UPDATE-AERONAVE
+// (Made by Vitor Hugo Amaro)
 app.put("/atualizarAeronave",async(req,res)=>{
   //UTILIZANDO A REQUISIÇÃO PUT PARA FAZER UM UPDATE NA TABELA AREONAVES
   //  receber os dados na requisição. 
@@ -386,6 +394,7 @@ app.put("/atualizarAeronave",async(req,res)=>{
 
 
 // ------------------------------------------------------------------------------------------------- LISTAR-AEROPORTO 
+// (Made by Vitor Hugo Amaro)
 app.get("/listarAeroporto", async(req,res)=>{
 //USANDO GET NA REQUISIÇÃO PARA FAZER UM SELECT NA TABELA AEROPORTOS NO BANCO DE DADOS VIA CONEXÃO PELO const connAttibs: ConnectionAttributes
   let cr: CustomResponse = {status: "ERROR", message: "", payload: undefined,};
@@ -418,6 +427,7 @@ app.get("/listarAeroporto", async(req,res)=>{
 
 });
 // ------------------------------------------------------------------------------------------------- INSERIR-AEROPORTO 
+// (Made by Vitor Hugo Amaro)
 app.put("/inserirAeroporto", async(req,res)=>{
   //REQUISIÇÃO TIPO PUT PARA REALIZAR INSERT
   // para inserir a aeronave temos que receber os dados na requisição. 
@@ -474,6 +484,7 @@ app.put("/inserirAeroporto", async(req,res)=>{
   }
 });
 // ------------------------------------------------------------------------------------------------- BUSCA-TODOS-OS-AEROPORTOS-CONFORME-A-CIDADE 
+// (Made by Vitor Hugo Amaro)
 app.get("/BuscarAeroportosAtravesDeCidades", async(req,res)=>{
   //BUSACAR AEROPORTO DE ACORDO COM A CIADADE, O RETORNO SERÁ APENAS AEROPORTOSD QUE ESTAO ASSOCIADOS COM A CIDADE
   const cidade = req.query.nome as string;
@@ -510,6 +521,7 @@ app.get("/BuscarAeroportosAtravesDeCidades", async(req,res)=>{
   
   });
 // ------------------------------------------------------------------------------------------------- DELETAR-AEROPORTO 
+// (Made by Vitor Hugo Amaro)
 app.delete("/excluirAeroporto", async(req,res)=>{
   // USANDO UMA REQUISIÇÃO  DELETE PARA EXCLUIR
   //pegando dados da requisição
@@ -561,6 +573,7 @@ app.delete("/excluirAeroporto", async(req,res)=>{
   }
 });
 // ------------------------------------------------------------------------------------------------- UPDATE-AEROPORTO
+// (Made by Vitor Hugo Amaro)
 app.put("/atualizarAeroporto",async(req,res)=>{
   // USANDO UMA REQUISIÇÃO TIPO PUT PARA ALTERAR A TABELA
   const nome = req.body.nome as String;
@@ -610,6 +623,7 @@ app.put("/atualizarAeroporto",async(req,res)=>{
 
 
 // ------------------------------------------------------------------------------------------------- LISTAR-CIDADE
+// (Made by Vitor Hugo Amaro)
 app.get("/listarCidades", async(req,res)=>{
 
   let cr: CustomResponse = {status: "ERROR", message: "", payload: undefined,};
@@ -641,6 +655,7 @@ app.get("/listarCidades", async(req,res)=>{
 
 });
 // ------------------------------------------------------------------------------------------------- INSERIR-CIDADE
+// (Made by Vitor Hugo Amaro)
 app.put("/inserirCidade", async(req,res)=>{
   
   // para inserir a  temos que receber os dados na requisição. 
@@ -696,6 +711,7 @@ app.put("/inserirCidade", async(req,res)=>{
   }
 });
 // ------------------------------------------------------------------------------------------------- DELETAR-CIDADE 
+// (Made by Vitor Hugo Amaro)
 app.delete("/excluirCidade", async(req,res)=>{
   // excluindo a CIDADE pelo código  id  dela:
   const  id_cidade = req.body.id_cidade as number;
@@ -746,6 +762,7 @@ app.delete("/excluirCidade", async(req,res)=>{
   }
 });
 // ------------------------------------------------------------------------------------------------- UPDATE-CIDADE 
+// (Made by Vitor Hugo Amaro)
 app.put("/atualizarCidade",async(req,res)=>{
   const nome = req.body.nome as string;
   const id_cidade = req.body.id_cidade as number;
@@ -804,6 +821,7 @@ app.put("/atualizarCidade",async(req,res)=>{
 
 
 // ------------------------------------------------------------------------------------------------- LISTAR-VOO 
+// (Made by Vitor Hugo Amaro)
 app.get("/listarVoo", async(req,res)=>{
 //faz uma busca de toda a tabela voos no oracle sql
   let cr: CustomResponse = {status: "ERROR", message: "", payload: undefined,};
@@ -835,6 +853,7 @@ app.get("/listarVoo", async(req,res)=>{
 
 });
 // ------------------------------------------------------------------------------------------------- BUSCAR-DATA-VOO-DE-IDA
+// (Made by Vitor Hugo Amaro)
 app.get("/BuscarVooAtravezDaDataIda", async(req,res)=>{
   //busca especificamente atráves da data
   const dia_partida = req.query.dia_partida as string;
@@ -872,7 +891,8 @@ app.get("/BuscarVooAtravezDaDataIda", async(req,res)=>{
   
   });
   // ------------------------------------------------------------------------------------------------- BUSCA VOO ATRAVEZ DA DATA VOLTA
-app.get("/BuscarVooAtravezDaDataVolta", async(req,res)=>{
+// (Made by Vitor Hugo Amaro)
+  app.get("/BuscarVooAtravezDaDataVolta", async(req,res)=>{
   //busca especificamente atráves da data
 
   const dia_partida = req.query.dia_partida as string;
@@ -909,6 +929,7 @@ app.get("/BuscarVooAtravezDaDataVolta", async(req,res)=>{
   
   });
 // ------------------------------------------------------------------------------------------------- INSERIR-VOO 
+// (Made by Vitor Hugo Amaro)
 app.put("/inserirvoo", async(req,res)=>{
   
   // para inserir a vooS temos que receber os dados na requisição. 
@@ -965,7 +986,7 @@ app.put("/inserirvoo", async(req,res)=>{
                        WHERE fk_aeronave = ${NumeroAeronave}';
  
  END;`; 
-
+console.log(`>>>>>> ${NumeroAeronave}`)
  //existe duas strings de comando, o 'cmdinsertvoo'  -> o primeiro insere uma nova linha na tabela voo 
  // a segunda é um begin que tem uma declaração que vai criar uma tabela backup de assentos de acordo com as informações especificadas
  await conn.execute(criaAssentosDoVoo);
@@ -1008,7 +1029,7 @@ A resposta da API é enviada como JSON, contendo informações sobre o status da
 
 
 // ==============================================  5-SESSÃO-TRECHOS ================================================================================================
-
+// (Made by Vitor Hugo Amaro)
 app.get("/listarTrecho", async(req,res)=>{
 
   let cr: CustomResponse = {status: "ERROR", message: "", payload: undefined,};
@@ -1040,6 +1061,7 @@ app.get("/listarTrecho", async(req,res)=>{
 
 });
 // ------------------------------------------------------------------------------------------------- INSERIR-TRECHO
+// (Made by Vitor Hugo Amaro)
 app.put("/inserirTrecho", async(req,res)=>{
   
   const nome = req.body.nome as string;
@@ -1103,7 +1125,8 @@ app.put("/inserirTrecho", async(req,res)=>{
   }
 });
 
- app.delete("/deleteTrecho",async(req,res)=>{
+// (Made by Vitor Hugo Amaro) 
+app.delete("/deleteTrecho",async(req,res)=>{
   const idTrecho = req.body.id_trecho as number;
   
   console.log(`recebendo ${idTrecho}`)
@@ -1147,6 +1170,7 @@ app.put("/inserirTrecho", async(req,res)=>{
 
 // ==============================================  6-SESSÃO-TICKETS ================================================================================================
 //ticket -----------------------------------------------------------------------------
+// (Made by Vitor Hugo Amaro) 
 app.put("/NovoTicket", async(req,res)=>{
   const email = req.body.email as string;
   const nome = req.body.nome as string;
