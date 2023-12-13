@@ -52,6 +52,7 @@ START WITH 1 INCREMENT BY 1;
 -- TABELAS--
 
 -- (Made by Vitor Hugo Amaro)
+-- (Made by Gustavo Bicaletto)
 -- tabela aeronave
 CREATE TABLE AERONAVES(
     Numero_de_identificacao INT PRIMARY KEY,
